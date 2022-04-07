@@ -41,15 +41,15 @@ int main(int argc, char **argv) {
                 break;
         default:        /* fork returns pid ke proses ortu */
                 for(int i=0; i<m; i++){
-                            fork();
-                        }
-                        printf("Mulai Consumer %d\n", getpid());
-                        for (int i = 0; i<MSGSIZE; i++) {
-                            sum = sum + shared[i];
-                        }
-                        printf("Total untuk proses Consumer %d = %d\n",getpid(), sum);
-                        printf("\n");
-                        break;
+                    fork();
+                }
+                    printf("Mulai Consumer %d\n", getpid());
+                for (int i = 0; i<MSGSIZE; i++) {
+                    sum = sum + shared[i];
+                }
+                printf("Total untuk proses Consumer %d = %d\n",getpid(), sum);
+                printf("\n");
+                break;
                         
         case -1:        /* error */
                 exit(1);
