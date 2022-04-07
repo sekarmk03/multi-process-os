@@ -11,7 +11,9 @@
 int main(int argc, char **argv)
 {
     int n, m;
+    printf("\nMasukkan jumlah Producer: ");
     scanf("%d", &n);
+    printf("\nMasukkan jumlah Consumer: ");
     scanf("%d", &m);
     int count = 0;
     char inbuf[MSGSIZE]; // buffer
