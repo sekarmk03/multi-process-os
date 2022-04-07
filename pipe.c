@@ -11,7 +11,9 @@
 int main(int argc, char **argv)
 {
     int n, m;
+    printf("\nMasukkan jumlah Producer: ");
     scanf("%d", &n);
+    printf("\nMasukkan jumlah Consumer: ");
     scanf("%d", &m);
     int count = 0;
     char inbuf[MSGSIZE]; // buffer
@@ -33,7 +35,7 @@ int main(int argc, char **argv)
         {
             fork();
         }
-        printf("Mulai Producer %d\n", getpid());
+        printf("\nMulai Producer %d\n", getpid());
 
         /* tulis data ke pipe */
         srand(getpid());
@@ -59,7 +61,7 @@ int main(int argc, char **argv)
                 {
                     fork();
                 }
-            printf("Mulai Consumer %d\n", getpid());
+            printf("\nMulai Consumer %d\n", getpid());
             /* tutup bagian output dari pipe */
             close(fd[1]);
             /* baca yang ditulis child dari pipe */
