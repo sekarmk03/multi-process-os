@@ -35,7 +35,7 @@ int main(int argc, char **argv)
         {
             fork();
         }
-        printf("\nMulai Producer %d\n", getpid());
+        printf("Mulai Producer %d\n", getpid());
 
         /* tulis data ke pipe */
         srand(getpid());
@@ -56,12 +56,12 @@ int main(int argc, char **argv)
         {
             /* sleep sampai sesuatu terjadi */
             /* wait selesai,  bangun */
+            for (int i = 0; i < m; i++)
+            {
+                fork();
+            }
             if (got_pid == pid)
-                for (int i = 0; i < m; i++)
-                {
-                    fork();
-                }
-            printf("\nMulai Consumer %d\n", getpid());
+                printf("Mulai Consumer %d\n", getpid());
             /* tutup bagian output dari pipe */
             close(fd[1]);
             /* baca yang ditulis child dari pipe */
