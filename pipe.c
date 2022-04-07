@@ -6,7 +6,7 @@
 #include <errno.h>    // errno
 #include <sys/wait.h> // wait
 
-#define MSGSIZE 6
+#define MSGSIZE 2
 
 int main(int argc, char **argv)
 {
