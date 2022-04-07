@@ -1,6 +1,6 @@
 # multi-process-os
 
-# Kelompok 2 - C1
+## Kelompok 2 - C1
 Anggota:
 1. Sekar Madu Kusumawardani (2007703)
 2. Rahma Maulida (2003688)
