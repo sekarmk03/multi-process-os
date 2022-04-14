@@ -10,11 +10,12 @@
 
 int main(int argc, char **argv)
 {
-    int n, m;
+    int producer, consumer;
     printf("\nMasukkan jumlah Producer: ");
-    scanf("%d", &n);
+    scanf("%d", &producer);
     printf("\nMasukkan jumlah Consumer: ");
-    scanf("%d", &m);
+    scanf("%d", &consumer);
+    printf("\n");
     int count = 0;
     char inbuf[MSGSIZE]; // buffer
     int pid;
@@ -31,7 +32,7 @@ int main(int argc, char **argv)
     {
     case 0:
         /* fork returns 0 ke proses anak */
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < producer; i++)
         {
             fork();
         }
@@ -44,7 +45,7 @@ int main(int argc, char **argv)
         for (int i = 0; i < MSGSIZE; i++)
         {
             arrIntChild[i] = (rand() % (10 - 0 + 1)) + 1;
-            printf("proses Producer ke %d untuk %d = %d\n", i + 1, getpid(), arrIntChild[i]);
+            printf("Proses Producer ke %d untuk %d = %d\n", i + 1, getpid(), arrIntChild[i]);
         }
         write(fd[1], arrIntChild, sizeof(arrIntChild));
         printf("\n");
@@ -56,25 +57,42 @@ int main(int argc, char **argv)
         {
             /* sleep sampai sesuatu terjadi */
             /* wait selesai,  bangun */
-            for (int i = 0; i < m; i++)
+            for (int i = 0; i < consumer; i++)
             {
                 fork();
             }
             if (got_pid == pid)
                 printf("Mulai Consumer %d\n", getpid());
+                
             /* tutup bagian output dari pipe */
             close(fd[1]);
+            
             /* baca yang ditulis child dari pipe */
             int arrIntParent[MSGSIZE];
+            
             /* baca yang ditulis child dari pipe */
             read(fd[0], arrIntParent, sizeof(arrIntParent));
-            int sum = 0;
+            
+            /* membuat variabel untuk menjumlahkan item, menyimpan pid dan jumlah item customer */
+            int sum = 0, arrPIDCustomer[MSGSIZE], arrSumCustomer[MSGSIZE];
             for (int i = 0; i < MSGSIZE; i++)
             {
                 sum = sum + arrIntParent[i];
             }
-            printf("Total untuk proses Consumer %d = %d\n", getpid(), sum);
+            
+            for(int i = 0; i < consumer; i++)
+            {
+                if(sum > 22 || sum < 0)
+                {
+                    printf("Consumer %d kehabisan item!\n", getpid());
+                }
+                else 
+                {
+                    printf("Total untuk proses Consumer %d dari %d = %d\n", getpid(), pid, sum);
+                }
+            }
             break;
+            
             if ((got_pid == -1) && (errno != EINTR))
             {
                 /* ada error */
